@@ -78,9 +78,7 @@ const SignUp = () => {
     setLoading(true);
     event.preventDefault();
     createUserWithEmailAndPassword(auth, formState.email, formState.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+      .then(() => {
         setFormState({
           email: "",
           password: "",
