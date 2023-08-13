@@ -6,7 +6,9 @@ import { AxiosResponse } from "axios";
 
 function* getGeneralData(): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get("/api/bootstrap-static/");
+    const response = yield axios.get(
+      "https://fantasy.premierleague.com/api/bootstrap-static/"
+    );
     yield put({
       type: appActions.GET_GENERAL_DATA_SUCCESS,
       payload: response.data,
@@ -22,7 +24,7 @@ function* getGeneralData(): Generator<any, void, AxiosResponse> {
 function* getLeagueData(action: any): Generator<any, void, AxiosResponse> {
   try {
     const response = yield axios.get(
-      `/api/leagues-classic/${action.leagueId}/standings/`
+      `https://fantasy.premierleague.com/api/leagues-classic/${action.leagueId}/standings/`
     );
     yield put({
       type: appActions.GET_LEAGUE_DATA_SUCCESS,
@@ -39,7 +41,7 @@ function* getLeagueData(action: any): Generator<any, void, AxiosResponse> {
 function* getTeamData(action: any): Generator<any, void, AxiosResponse> {
   try {
     const response = yield axios.get(
-      `/api/entry/${action.managerId}/event/${action.eventId}/picks/`
+      `https://fantasy.premierleague.com/api/entry/${action.managerId}/event/${action.eventId}/picks/`
     );
     yield put({
       type: appActions.GET_TEAM_DATA_SUCCESS,
@@ -56,7 +58,7 @@ function* getTeamData(action: any): Generator<any, void, AxiosResponse> {
 function* getPlayerData(action: any): Generator<any, void, AxiosResponse> {
   try {
     const response = yield axios.get(
-      `/api/element-summary/${action.playerId}/`
+      `https://fantasy.premierleague.com/api/element-summary/${action.playerId}/`
     );
     yield put({
       type: appActions.GET_PLAYER_DATA_SUCCESS,
@@ -72,7 +74,9 @@ function* getPlayerData(action: any): Generator<any, void, AxiosResponse> {
 
 function* getFixtureData(): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(`/api/fixtures/`);
+    const response = yield axios.get(
+      `https://fantasy.premierleague.com/api/fixtures/`
+    );
     yield put({
       type: appActions.GET_FIXTURE_DATA_SUCCESS,
       payload: response,
@@ -87,7 +91,9 @@ function* getFixtureData(): Generator<any, void, AxiosResponse> {
 
 function* getGameweekData(action: any): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(`/api/event/${action.gameweekId}/live/`);
+    const response = yield axios.get(
+      `https://fantasy.premierleague.com/api/event/${action.gameweekId}/live/`
+    );
     yield put({
       type: appActions.GET_GAMEWEEK_DATA_SUCCESS,
       payload: response.data,
@@ -104,7 +110,9 @@ function* getManagerHistoryData(
   action: any
 ): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(`/api/entry/${action.managerId}/history/`);
+    const response = yield axios.get(
+      `https://fantasy.premierleague.com/api/entry/${action.managerId}/history/`
+    );
     yield put({
       type: appActions.GET_MANAGER_HISTORY_DATA_SUCCESS,
       payload: response.data,
@@ -119,7 +127,9 @@ function* getManagerHistoryData(
 
 function* getManagerData(action: any): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(`/api/entry/${action.managerId}/`);
+    const response = yield axios.get(
+      `https://fantasy.premierleague.com/api/entry/${action.managerId}/`
+    );
     yield put({
       type: appActions.GET_MANAGER_DATA_SUCCESS,
       payload: response.data,
@@ -134,7 +144,9 @@ function* getManagerData(action: any): Generator<any, void, AxiosResponse> {
 
 function* getEventData(): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(`/api/event-status/`);
+    const response = yield axios.get(
+      `https://fantasy.premierleague.com/api/event-status/`
+    );
     yield put({
       type: appActions.GET_EVENT_DATA_SUCCESS,
       payload: response.data,
