@@ -7,7 +7,7 @@ import { AxiosResponse } from "axios";
 function* getGeneralData(): Generator<any, void, AxiosResponse> {
   try {
     const response = yield axios.get(
-      "https://fantasy.premierleague.com/api/bootstrap-static/"
+      "https://fantasy-server.onrender.com/general-info/"
     );
     yield put({
       type: appActions.GET_GENERAL_DATA_SUCCESS,
@@ -21,10 +21,10 @@ function* getGeneralData(): Generator<any, void, AxiosResponse> {
   }
 }
 
-function* getLeagueData(action: any): Generator<any, void, AxiosResponse> {
+function* getLeagueData(): Generator<any, void, AxiosResponse> {
   try {
     const response = yield axios.get(
-      `https://fantasy.premierleague.com/api/leagues-classic/${action.leagueId}/standings/`
+      "https://fantasy-server.onrender.com/league-standings/"
     );
     yield put({
       type: appActions.GET_LEAGUE_DATA_SUCCESS,
