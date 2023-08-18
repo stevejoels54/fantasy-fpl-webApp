@@ -21,6 +21,7 @@ import {
 } from "firebase/firestore";
 import ContentLoading from "../components/ContentLoading";
 import ErrorCard from "../components/ErrorCard";
+import GameWeekInfo from "../components/GameWeekInfo";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -120,7 +121,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const userCollectionRef = collection(db, "users"); // Replace 'db' with your Firestore instance
+        const userCollectionRef = collection(db, "users");
         const querySnapshot = await getDocs(userCollectionRef);
 
         const fetchedUsers: User[] = [];
@@ -153,6 +154,7 @@ const Home = () => {
         <>
           <Grid container spacing={2}>
             {userLoggedIn && verified && <HomeRibbon />}
+            <GameWeekInfo />
             <Grid item xs={12} md={4}>
               <Item
                 sx={{
@@ -175,11 +177,13 @@ const Home = () => {
                   <div>
                     <div>
                       {!isEmpty(league) && (
-                        <h1>
-                          {isEmpty(league?.standings?.results)
-                            ? "League Entries"
-                            : "League Standings"}
-                        </h1>
+                        <>
+                          <h1>
+                            {isEmpty(league?.standings?.results)
+                              ? "League Entries"
+                              : "League Standings"}
+                          </h1>
+                        </>
                       )}
                     </div>
                     {isEmpty(league?.standings?.results)

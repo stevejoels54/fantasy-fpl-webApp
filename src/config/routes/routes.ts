@@ -3,7 +3,7 @@ import Leagues from "../../pages/Leagues";
 import Fixtures from "../../pages/Fixtures";
 import Players from "../../pages/Players";
 import Teams from "../../pages/Teams";
-import Profile from "../../pages/profile/Profile";
+import Profile from "../../pages/profile/user/Profile";
 
 export const routes = [
   {

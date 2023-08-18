@@ -4,11 +4,11 @@ import axios from "axios";
 import appActions from "../actions/actions";
 import { AxiosResponse } from "axios";
 
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
+
 function* getGeneralData(): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(
-      "https://fantasy-server.onrender.com/general-info/"
-    );
+    const response = yield axios.get(baseUrl + "/general-info/");
     yield put({
       type: appActions.GET_GENERAL_DATA_SUCCESS,
       payload: response.data,
@@ -23,9 +23,7 @@ function* getGeneralData(): Generator<any, void, AxiosResponse> {
 
 function* getLeagueData(): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(
-      "https://fantasy-server.onrender.com/league-standings/"
-    );
+    const response = yield axios.get(baseUrl + "/league-standings/");
     yield put({
       type: appActions.GET_LEAGUE_DATA_SUCCESS,
       payload: response.data,
@@ -144,9 +142,7 @@ function* getManagerData(action: any): Generator<any, void, AxiosResponse> {
 
 function* getEventData(): Generator<any, void, AxiosResponse> {
   try {
-    const response = yield axios.get(
-      `https://fantasy.premierleague.com/api/event-status/`
-    );
+    const response = yield axios.get(baseUrl + "/event-status/");
     yield put({
       type: appActions.GET_EVENT_DATA_SUCCESS,
       payload: response.data,

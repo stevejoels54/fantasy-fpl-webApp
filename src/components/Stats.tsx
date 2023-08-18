@@ -22,6 +22,7 @@ import {
 } from "../config/helpers/LeagueStats";
 import ContentLoading from "./ContentLoading";
 import { isEmpty } from "lodash";
+import getCurrentGameweek from "../config/helpers/GameWeeks";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -36,6 +37,8 @@ const Stats = () => {
     leagueDataSuccess: league,
     usersData,
     leagueDataLoading: loading,
+    generalDataSuccess: generalData,
+    generalDataLoading: dataLoading,
   } = useSelector((state: any) => state.rootReducer);
 
   const [promotedManagers, setPromotedManagers] = useState([] as any);
@@ -96,6 +99,13 @@ const Stats = () => {
       setLeagueStats(leagueStats);
     }
   }, [league]);
+
+  // useMemo to get the current gameweek
+  const currentGameweek = useMemo(() => {
+    if (generalData) {
+      return getCurrentGameweek(generalData);
+    }
+  }, [generalData]);
 
   return (
     <div>
@@ -259,7 +269,7 @@ const Stats = () => {
               }}
             >
               <Typography variant="subtitle1">General</Typography>
-              {loading ? (
+              {loading || dataLoading ? (
                 <div
                   style={{
                     display: "flex",
@@ -285,7 +295,10 @@ const Stats = () => {
                         width: "100%",
                       }}
                     >
-                      <NumbersCard title="Game Week" value={1} />
+                      <NumbersCard
+                        title="Gameweek"
+                        value={currentGameweek?.id || 0}
+                      />
                       <NumbersCard
                         title="Total Points"
                         value={leagueStats?.totalSum}
