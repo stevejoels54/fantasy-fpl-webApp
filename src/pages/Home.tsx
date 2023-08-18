@@ -22,6 +22,7 @@ import {
 import ContentLoading from "../components/ContentLoading";
 import ErrorCard from "../components/ErrorCard";
 import GameWeekInfo from "../components/GameWeekInfo";
+import { sortManagersByRank } from "../config/helpers/LeagueStandings";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -48,6 +49,14 @@ const Home = () => {
 
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [leagueStats, setLeagueStats] = useState<any>({});
+  const [sortedByRank, setSortedByRank] = useState([] as any);
+
+  useEffect(() => {
+    if (league) {
+      const sortedByRank = sortManagersByRank(league?.standings?.results || []);
+      setSortedByRank(sortedByRank);
+    }
+  }, [league]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -139,8 +148,6 @@ const Home = () => {
     fetchUsers();
   }, [dispatch]);
 
-  // console.log("From State: ", usersData);
-
   return (
     <div
       style={{
@@ -187,7 +194,7 @@ const Home = () => {
                       )}
                     </div>
                     {isEmpty(league?.standings?.results)
-                      ? league?.new_entries?.results?.map(
+                      ? league?.entries?.results?.map(
                           (manager: any, index: number) => (
                             <TableCard
                               key={index}
@@ -206,36 +213,34 @@ const Home = () => {
                             />
                           )
                         )
-                      : league?.standings?.results?.map(
-                          (manager: any, index: any) => (
-                            <TableCard
-                              key={manager?.id}
-                              managerName={manager?.player_name}
-                              teamName={manager?.entry_name}
-                              position={index + 1}
-                              change={
-                                manager?.last_rank === 0
-                                  ? 0
-                                  : manager?.last_rank === manager?.rank
-                                  ? 0
-                                  : manager?.last_rank < manager?.rank
-                                  ? -1
-                                  : 1
-                              }
-                              points={manager?.total}
-                              average={leagueStats?.averageScore}
-                              is_manager={
-                                manager?.entry === team?.teamId ? true : false
-                              }
-                              avatar={
-                                usersData?.find(
-                                  (user: any) =>
-                                    user?.team?.teamId === manager?.entry
-                                )?.team?.teamPhotoUrl
-                              }
-                            />
-                          )
-                        )}
+                      : sortedByRank?.map((manager: any, index: any) => (
+                          <TableCard
+                            key={manager?.id}
+                            managerName={manager?.player_name}
+                            teamName={manager?.entry_name}
+                            position={index + 1}
+                            change={
+                              manager?.last_rank === 0
+                                ? 0
+                                : manager?.last_rank === manager?.rank
+                                ? 0
+                                : manager?.last_rank < manager?.rank
+                                ? -1
+                                : 1
+                            }
+                            points={manager?.total}
+                            average={leagueStats?.averageScore}
+                            is_manager={
+                              manager?.entry === team?.teamId ? true : false
+                            }
+                            avatar={
+                              usersData?.find(
+                                (user: any) =>
+                                  user?.team?.teamId === manager?.entry
+                              )?.team?.teamPhotoUrl
+                            }
+                          />
+                        ))}
                   </div>
                 )}
               </Item>

@@ -1,3 +1,4 @@
+import React from "react";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { Chip } from "@mui/material";
@@ -74,8 +75,8 @@ export default function LeagueStatusTable() {
             margin: "20px 0px",
           }}
         >
-          {eventData?.status?.map((event: any, index: any) => {
-            return (
+          {eventData?.status?.map((event: any, index: any) => (
+            <React.Fragment key={event.date}>
               <>
                 <tr key={index}>
                   <td>{moment(event.date).format("ddd  DD MMM")}</td>
@@ -104,8 +105,8 @@ export default function LeagueStatusTable() {
                   </td>
                 </tr>
               </>
-            );
-          })}
+            </React.Fragment>
+          ))}
         </tbody>
       </table>
     </StyledPaper>
