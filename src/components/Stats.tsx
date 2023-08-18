@@ -124,13 +124,32 @@ const Stats = () => {
             }}
             className="no-scroll-bar"
           >
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Typography variant="subtitle1">Promoted Managers</Typography>
               {loading ? (
                 <div>
                   {Array.from({ length: 8 }, (_, i) => (
                     <ContentLoading key={i} variant="h4" />
                   ))}
+                </div>
+              ) : isEmpty(promotedManagers) ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <Typography variant="subtitle2">
+                    No Promotions, at the moment
+                  </Typography>
                 </div>
               ) : (
                 <div>
@@ -164,13 +183,32 @@ const Stats = () => {
             }}
             className="no-scroll-bar"
           >
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Typography variant="subtitle1">Relegated Managers</Typography>
               {loading ? (
                 <div>
                   {Array.from({ length: 8 }, (_, i) => (
                     <ContentLoading key={i} variant="h4" />
                   ))}
+                </div>
+              ) : isEmpty(relegatedManagers) ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <Typography variant="subtitle2">
+                    No Relegations, at the moment
+                  </Typography>
                 </div>
               ) : (
                 <div>
@@ -208,8 +246,7 @@ const Stats = () => {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
+                height: "100%",
               }}
             >
               <Typography variant="subtitle1">Manager To Watch</Typography>
@@ -227,21 +264,27 @@ const Stats = () => {
                 </div>
               ) : (
                 !isEmpty(league) && (
-                  <>
-                    <div>
-                      <ManagerToWatch
-                        managerName={managerToWatch?.player_name}
-                        teamName={managerToWatch?.entry_name}
-                        riseIndex={managerToWatch?.riseIndex}
-                        avatar={
-                          usersData?.find(
-                            (user: any) =>
-                              user?.team?.teamId === managerToWatch?.entry
-                          )?.team?.teamPhotoUrl
-                        }
-                      />
-                    </div>
-                  </>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                    }}
+                  >
+                    <ManagerToWatch
+                      managerName={managerToWatch?.player_name}
+                      teamName={managerToWatch?.entry_name}
+                      riseIndex={managerToWatch?.riseIndex}
+                      avatar={
+                        usersData?.find(
+                          (user: any) =>
+                            user?.team?.teamId === managerToWatch?.entry
+                        )?.team?.teamPhotoUrl
+                      }
+                    />
+                  </div>
                 )
               )}
             </div>

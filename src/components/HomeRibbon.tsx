@@ -108,7 +108,7 @@ const HomeRibbon = () => {
                     leagueStats?.averageScore
                   )}
                 >
-                  {userTeam?.event_total || ""}
+                  {userTeam?.event_total || "0"}
                 </Typography>
               </div>
             )}
@@ -327,7 +327,7 @@ const HomeRibbon = () => {
                             leagueStats?.averageScore
                           )}
                         >
-                          {userTeam?.event_total || ""}
+                          {userTeam?.event_total || "0"}
                         </Typography>
                       </>
                     )}

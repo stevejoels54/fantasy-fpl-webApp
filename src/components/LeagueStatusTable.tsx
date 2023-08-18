@@ -34,6 +34,8 @@ export default function LeagueStatusTable() {
       <h4>
         {eventData?.leagues === "Updated" ? (
           <Chip label="Leagues Updated" color="success" />
+        ) : eventData?.leagues === "Updating" ? (
+          <Chip label="Updating Leagues..." color="warning" />
         ) : (
           <Chip label="Leagues Not Updated" color="error" />
         )}
