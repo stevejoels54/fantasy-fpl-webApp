@@ -21,7 +21,30 @@ export const getLeagueStats = (managers: any) => {
   return { totalScores, highestScore, averageScore, lowestScore, totalSum };
 };
 
-// 2. Get manager to watch (manager with the highest points in the last gameweek)
+// 2. Function to get event (gameweek) stats like Total, Highest, Average, and Lowest scores
+
+export const getEventStats = (managers: any) => {
+  if (!managers || managers.length === 0) {
+    return {
+      totalScores: [],
+      highestScore: 0,
+      averageScore: 0,
+      lowestScore: 0,
+      totalSum: 0,
+    };
+  }
+  const totalScores = managers.map((manager: any) => manager.event_total);
+  const highestScore = Math.max(...totalScores);
+  const averageScore = Math.round(
+    totalScores.reduce((a: any, b: any) => a + b) / totalScores.length
+  );
+  const lowestScore = Math.min(...totalScores);
+  const totalSum = totalScores.reduce((a: any, b: any) => a + b);
+
+  return { totalScores, highestScore, averageScore, lowestScore, totalSum };
+};
+
+// 3. Get manager to watch (manager with the highest points in the last gameweek)
 
 export const getManagerToWatch = (managers: any[]) => {
   if (!managers || managers.length === 0) {
@@ -47,20 +70,7 @@ export const getManagerToWatch = (managers: any[]) => {
   return managerToWatch;
 };
 
-// export const getManagerToWatch = (managers: any) => {
-//   if (!managers || managers.length === 0) {
-//     return null;
-//   }
-//   const managersSortedByEventTotal = managers.sort((a: any, b: any) => {
-//     return b.event_total - a.event_total;
-//   });
-//   // Add riseIndex to the manager to watch
-
-//   const managerToWatch = managersSortedByEventTotal[0];
-//   return managerToWatch;
-// };
-
-// 3. Get manager to avoid (manager with the lowest points in the last gameweek)
+// 4. Get manager to avoid (manager with the lowest points in the last gameweek)
 
 export const getManagerToAvoid = (managers: any) => {
   if (!managers || managers.length === 0) {
@@ -73,7 +83,7 @@ export const getManagerToAvoid = (managers: any) => {
   return managerToAvoid;
 };
 
-// 6. Get manager with the highest total points
+// 5. Get manager with the highest total points
 
 export const getManagerWithHighestTotalPoints = (managers: any) => {
   if (!managers || managers.length === 0) {
@@ -86,7 +96,7 @@ export const getManagerWithHighestTotalPoints = (managers: any) => {
   return managerWithHighestTotalPoints;
 };
 
-// 7. Get manager with the lowest total points
+// 6. Get manager with the lowest total points
 
 export const getManagerWithLowestTotalPoints = (managers: any) => {
   if (!managers || managers.length === 0) {
@@ -99,7 +109,7 @@ export const getManagerWithLowestTotalPoints = (managers: any) => {
   return managerWithLowestTotalPoints;
 };
 
-// 8. Get manager with the highest overall rank
+// 7. Get manager with the highest overall rank
 
 export const getManagerWithHighestOverallRank = (managers: any) => {
   if (!managers || managers.length === 0) {
@@ -112,7 +122,7 @@ export const getManagerWithHighestOverallRank = (managers: any) => {
   return managerWithHighestOverallRank;
 };
 
-// 9. Get manager with the lowest overall rank
+// 8. Get manager with the lowest overall rank
 
 export const getManagerWithLowestOverallRank = (managers: any) => {
   if (!managers || managers.length === 0) {

@@ -45,7 +45,7 @@ export function identifyPromotions(
   for (const seniorManager of seniorLeague) {
     if (
       juniorLeagueByLastRank.some(
-        (juniorManager: any) => juniorManager.rank === seniorManager.rank
+        (juniorManager: any) => juniorManager.id === seniorManager.id
       )
     ) {
       promotedManagers.push(seniorManager);
@@ -65,7 +65,7 @@ export function identifyRelegations(
   for (const juniorManager of juniorLeague) {
     if (
       seniorLeagueByLastRank.some(
-        (seniorManager: any) => seniorManager.rank === juniorManager.rank
+        (seniorManager: any) => seniorManager.id === juniorManager.id
       )
     ) {
       relegatedManagers.push(juniorManager);
