@@ -149,6 +149,7 @@ const Leagues = () => {
                               : 1
                           }
                           points={manager?.total}
+                          eventPoints={manager?.event_total}
                           average={leagueStats?.averageScore}
                           is_manager={
                             manager?.entry === team?.teamId ? true : false
@@ -206,6 +207,7 @@ const Leagues = () => {
                               : 1
                           }
                           points={manager?.total}
+                          eventPoints={manager?.event_total}
                           average={leagueStats?.averageScore}
                           is_manager={
                             manager?.entry === team?.teamId ? true : false
@@ -262,6 +264,7 @@ const Leagues = () => {
                             : 1
                         }
                         points={manager?.total}
+                        eventPoints={manager?.event_total}
                         average={leagueStats?.averageScore}
                         is_manager={
                           manager?.entry === team?.teamId ? true : false

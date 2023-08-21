@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import { Typography, Avatar, Grid, Hidden } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { useSelector } from "react-redux";
-import { getLeagueStats } from "../config/helpers/LeagueStats";
+import { getEventStats } from "../config/helpers/LeagueStats";
 import { isEmpty } from "lodash";
 import ContentLoading from "./ContentLoading";
 
@@ -34,7 +34,7 @@ const HomeRibbon = () => {
   );
 
   const [userTeam, setUserTeam] = useState<any>({}); // current user's team data
-  const [leagueStats, setLeagueStats] = useState({} as any);
+  const [eventStats, setEventStats] = useState({} as any);
   const [weekManager, setWeekManager] = useState<any>({}); // current week's manager of the week
 
   // useMemo function to get current user's team data
@@ -45,8 +45,8 @@ const HomeRibbon = () => {
     if (userTeam) {
       setUserTeam(userTeam);
     }
-    const leagueStats = getLeagueStats(league?.standings?.results || []);
-    setLeagueStats(leagueStats);
+    const eventStats = getEventStats(league?.standings?.results || []);
+    setEventStats(eventStats);
 
     // get current week's manager of the week (manager with first rank points in league)
     const weekManager = league?.standings?.results?.find(
@@ -105,7 +105,7 @@ const HomeRibbon = () => {
                   variant="h4"
                   color={getColor(
                     userTeam?.event_total,
-                    leagueStats?.averageScore
+                    eventStats?.averageScore
                   )}
                 >
                   {userTeam?.event_total || "0"}
@@ -324,7 +324,7 @@ const HomeRibbon = () => {
                           }}
                           color={getColor(
                             userTeam?.event_total,
-                            leagueStats?.averageScore
+                            eventStats?.averageScore
                           )}
                         >
                           {userTeam?.event_total || "0"}

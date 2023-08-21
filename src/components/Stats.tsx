@@ -66,6 +66,7 @@ const Stats = () => {
         league?.standings?.results || []
       );
       const leaguesByLastRank = createLeaguesByLastRank(sortedByLastRank);
+      // console.log("leaguesByLastRank", leaguesByLastRank);
 
       // Check if all managers have last_rank of zero (i.e. all managers are new)
       const allManagersAreNew = sortedByLastRank.every(

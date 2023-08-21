@@ -5,6 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+// import { isEmpty } from "lodash";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#101C26" : "#fff",
@@ -25,6 +26,7 @@ export interface TableCardProps {
   is_manager?: boolean;
   avatar?: string;
   entry?: number;
+  eventPoints?: number;
 }
 
 const TableCard = ({
@@ -37,6 +39,7 @@ const TableCard = ({
   average,
   is_manager,
   avatar,
+  eventPoints,
 }: // entry,
 TableCardProps) => {
   function stringToColor(string: string) {
@@ -160,6 +163,13 @@ TableCardProps) => {
                 >
                   {points?.toLocaleString()} {"pts"}
                 </Typography>
+                {
+                  <Typography variant="subtitle2" color="#FFD700">
+                    {eventPoints && !isNaN(eventPoints)
+                      ? `(${eventPoints?.toLocaleString()} pts)`
+                      : null}
+                  </Typography>
+                }
               </Grid>
             )}
           </Grid>
