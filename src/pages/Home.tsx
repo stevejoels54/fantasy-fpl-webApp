@@ -265,7 +265,14 @@ const Home = () => {
         </>
       ) : (
         <>
-          <ErrorCard />
+          {Error?.response?.status === 503 ? (
+            <ErrorCard
+              message="The FPL game is currently being updated. Please try again later.
+            "
+            />
+          ) : (
+            <ErrorCard />
+          )}
         </>
       )}
     </div>

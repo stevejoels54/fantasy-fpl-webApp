@@ -3,6 +3,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { FaExclamationCircle } from "react-icons/fa";
 import { Typography } from "@mui/material";
+import { isEmpty } from "lodash";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -12,7 +13,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const ErrorCard = () => {
+interface ErrorCardProps {
+  message?: string;
+}
+
+const ErrorCard = ({ message }: ErrorCardProps) => {
   return (
     <div
       style={{
@@ -34,7 +39,9 @@ const ErrorCard = () => {
         <h1>Oops!</h1>
         <FaExclamationCircle size={200} />
         <Typography variant="subtitle1">
-          Something went wrong. Please try reloading the page.
+          {isEmpty(message)
+            ? "Something went wrong. Please try reloading the page."
+            : message}
         </Typography>
         <Button
           variant="contained"
