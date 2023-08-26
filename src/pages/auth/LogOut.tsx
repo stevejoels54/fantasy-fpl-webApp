@@ -45,7 +45,7 @@ const LogOut = () => {
       >
         <Box sx={style}>
           <DialogTitle id="responsive-dialog-title">
-            {"LogOut User?"}
+            {"Log Out User?"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ color: "#ffffff" }}>
