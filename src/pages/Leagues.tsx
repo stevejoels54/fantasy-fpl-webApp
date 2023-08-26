@@ -15,6 +15,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import ContentLoading from "../components/ContentLoading";
 import ErrorCard from "../components/ErrorCard";
+import Fab from "@mui/material/Fab";
+import ReplayIcon from "@mui/icons-material/Replay";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -96,6 +99,11 @@ const Leagues = () => {
 
     fetchUsers();
   }, [dispatch]);
+
+  const handleRefresh = () => {
+    dispatch(appActions.getLeagueData("314509"));
+    dispatch(appActions.getEventData());
+  };
 
   return (
     <div
@@ -280,6 +288,28 @@ const Leagues = () => {
                 )}
               </Item>
             </Grid>
+            <Fab
+              sx={{
+                position: "fixed",
+                bottom: "2rem",
+                right: "2rem",
+                zIndex: 1000,
+                // backgroundColor: "#303840",
+                backgroundColor: "#6200ea",
+              }}
+              onClick={handleRefresh}
+              color="primary"
+            >
+              {loading ? (
+                <CircularProgress sx={{ color: "#ffffff" }} />
+              ) : (
+                <ReplayIcon
+                  sx={{
+                    color: "#ffffff",
+                  }}
+                />
+              )}
+            </Fab>
           </Grid>
         </>
       ) : (

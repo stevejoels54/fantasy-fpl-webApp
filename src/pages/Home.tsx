@@ -23,6 +23,9 @@ import ContentLoading from "../components/ContentLoading";
 import ErrorCard from "../components/ErrorCard";
 import GameWeekInfo from "../components/GameWeekInfo";
 import { sortManagersByRank } from "../config/helpers/LeagueStandings";
+import Fab from "@mui/material/Fab";
+import ReplayIcon from "@mui/icons-material/Replay";
+import { CircularProgress } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -148,6 +151,11 @@ const Home = () => {
     fetchUsers();
   }, [dispatch]);
 
+  const handleRefresh = () => {
+    dispatch(appActions.getLeagueData("314509"));
+    dispatch(appActions.getEventData());
+  };
+
   return (
     <div
       style={{
@@ -261,6 +269,32 @@ const Home = () => {
                 <Stats />
               </Item>
             </Grid>
+            <Fab
+              sx={{
+                position: "fixed",
+                bottom: "2rem",
+                right: "2rem",
+                zIndex: 1000,
+                // backgroundColor: "#303840",
+                backgroundColor: "#6200ea",
+              }}
+              onClick={handleRefresh}
+              color="primary"
+            >
+              {loading ? (
+                <CircularProgress
+                  sx={{
+                    color: "#ffffff",
+                  }}
+                />
+              ) : (
+                <ReplayIcon
+                  sx={{
+                    color: "#ffffff",
+                  }}
+                />
+              )}
+            </Fab>
           </Grid>
         </>
       ) : (
