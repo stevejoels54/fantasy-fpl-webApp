@@ -134,3 +134,16 @@ export const getManagerWithLowestOverallRank = (managers: any) => {
   const managerWithLowestOverallRank = managersSortedByOverallRank[0];
   return managerWithLowestOverallRank;
 };
+
+// 9. Get manager with lowest point in a gameweek
+
+export const getManagerWithLowestPointInAGameweek = (managers: any) => {
+  if (!managers || managers.length === 0) {
+    return null;
+  }
+  const managersSortedByEventTotal = managers.sort((a: any, b: any) => {
+    return a.event_total - b.event_total;
+  });
+  const managerWithLowestPointInAGameweek = managersSortedByEventTotal[0];
+  return managerWithLowestPointInAGameweek;
+};

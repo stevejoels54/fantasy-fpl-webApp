@@ -19,6 +19,7 @@ import {
 import {
   getLeagueStats,
   getManagerToWatch,
+  getManagerWithLowestPointInAGameweek,
 } from "../config/helpers/LeagueStats";
 import ContentLoading from "./ContentLoading";
 import { isEmpty } from "lodash";
@@ -45,6 +46,7 @@ const Stats = () => {
   const [relegatedManagers, setRelegatedManagers] = useState([] as any);
   const [managerToWatch, setManagerToWatch] = useState({} as any);
   const [leagueStats, setLeagueStats] = useState({} as any);
+  const [jokingManager, setJokingManager] = useState({} as any);
 
   interface Manager {
     entry: number;
@@ -98,6 +100,11 @@ const Stats = () => {
 
       const leagueStats = getLeagueStats(league?.standings?.results || []);
       setLeagueStats(leagueStats);
+
+      const managerWithLowestPointInAGameweek =
+        getManagerWithLowestPointInAGameweek(league?.standings?.results || []);
+
+      setJokingManager(managerWithLowestPointInAGameweek);
     }
   }, [league]);
 
@@ -292,6 +299,67 @@ const Stats = () => {
           </Item>
         </Grid>
         <Grid item xs={4} md={6}>
+          <Item
+            sx={{
+              height: "28vh",
+              overflowY: "scroll",
+              overflowX: "scroll",
+              backgroundColor: "#101C26",
+              color: "#ffffff",
+              marginBottom: "1rem",
+              borderRadius: "10px",
+            }}
+            className="no-scroll-bar"
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
+              <Typography variant="subtitle1">Joking Manager</Typography>
+              {loading ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <ContentLoading />
+                </div>
+              ) : (
+                !isEmpty(league) && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                    }}
+                  >
+                    <ManagerToWatch
+                      managerName={jokingManager?.player_name}
+                      teamName={jokingManager?.entry_name}
+                      riseIndex={jokingManager?.riseIndex}
+                      avatar={
+                        usersData?.find(
+                          (user: any) =>
+                            user?.team?.teamId === jokingManager?.entry
+                        )?.team?.teamPhotoUrl
+                      }
+                    />
+                  </div>
+                )
+              )}
+            </div>
+          </Item>
+        </Grid>
+        <Grid item xs={4} md={12}>
           <Item
             sx={{
               height: "28vh",
