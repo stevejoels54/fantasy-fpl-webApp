@@ -93,6 +93,10 @@ const UploadTeamPicture = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    // before uploading the file check if the file is selected
+    if (!file) {
+      return;
+    }
     const storageRef = ref(storage, `teams/${fileName}`);
     const uploadTask = uploadBytesResumable(storageRef, file as Blob);
     setLoading(true);
